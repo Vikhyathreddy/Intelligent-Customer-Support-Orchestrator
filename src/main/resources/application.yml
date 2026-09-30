@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: support-orchestrator
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/support}
+    username: ${DB_USER:support}
+    password: ${DB_PASSWORD:support}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:20}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 100MB
+  threads:
+    virtual:
+      enabled: true
+
+app:
+  llm:
+    api-key: ${ANTHROPIC_API_KEY:}
+    model: ${LLM_MODEL:claude-opus-5-5}
+    max-tokens: 16000
+    timeout-seconds: 120
+    log-requests: false
+  retrieval:
+    max-results: 5
+    min-score: 0.55
+    answerable-score: 0.65
+  ingestion:
+    docs-path: ${DOCS_PATH:./sample-docs}
+    on-startup: true
+    chunk-size: 800
+    chunk-overlap: 100
+    batch-size: 100
+  memory:
+    max-messages: 10
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

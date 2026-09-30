@@ -1,0 +1,5 @@
+Knowledge-base excerpts:
+{{context}}
+
+Customer question:
+{{question}}
