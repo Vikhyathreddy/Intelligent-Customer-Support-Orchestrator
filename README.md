@@ -30,11 +30,20 @@ flowchart LR
 
 ## Quick start
 
-Requirements: Docker, plus an [Anthropic API key](https://console.anthropic.com/).
+Requirements: Docker, plus access to Claude either through **Amazon Bedrock** (default) or an
+**Anthropic API key**.
+
+**Amazon Bedrock** (uses your AWS login from `aws configure`; the full walkthrough is in
+[docs/aws-bedrock-setup.md](docs/aws-bedrock-setup.md)):
 
 ```bash
-export ANTHROPIC_API_KEY=your-key
-docker compose up --build
+LLM_MODEL=<model-id-from-bedrock-console> docker compose up --build
+```
+
+**Anthropic API**:
+
+```bash
+LLM_PROVIDER=anthropic LLM_MODEL=claude-opus-5-5 ANTHROPIC_API_KEY=your-key docker compose up --build
 ```
 
 Open http://localhost:8080 to use the chat page. On startup the app embeds everything in `sample-docs/`.
@@ -43,7 +52,7 @@ Open http://localhost:8080 to use the chat page. On startup the app embeds every
 
 ```bash
 docker compose up -d postgres
-export ANTHROPIC_API_KEY=your-key
+export LLM_PROVIDER=bedrock LLM_MODEL=<model-id> AWS_REGION=us-east-1
 mvn spring-boot:run
 ```
 
@@ -93,7 +102,9 @@ Everything is in `src/main/resources/application.yml` and can be overridden with
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `LLM_MODEL` | `claude-opus-5-5` | Anthropic model used for classification and answers |
+| `LLM_PROVIDER` | `bedrock` | `bedrock` (Claude via AWS) or `anthropic` (Claude via the Anthropic API) |
+| `LLM_MODEL` | `anthropic.claude-opus-5-5` | Model ID for the provider; for Bedrock, copy it from the console |
+| `AWS_REGION` | `us-east-1` | Bedrock region |
 | `app.retrieval.max-results` | 5 | Chunks given to the model |
 | `app.retrieval.min-score` | 0.55 | Chunks below this similarity are dropped |
 | `app.retrieval.answerable-score` | 0.65 | Best chunk must reach this or the ticket escalates without an LLM call |

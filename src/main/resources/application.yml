@@ -23,8 +23,12 @@ spring:
 
 app:
   llm:
+    # bedrock = Claude through AWS (uses your AWS login); anthropic = Claude through the Anthropic API
+    provider: ${LLM_PROVIDER:bedrock}
+    # Bedrock: copy the model or inference-profile ID from the Bedrock console (Model catalog)
+    model: ${LLM_MODEL:anthropic.claude-opus-5-5}
+    region: ${AWS_REGION:us-east-1}
     api-key: ${ANTHROPIC_API_KEY:}
-    model: ${LLM_MODEL:claude-opus-5-5}
     max-tokens: 16000
     timeout-seconds: 120
     log-requests: false

@@ -8,7 +8,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "app")
 public record AppProperties(Llm llm, Retrieval retrieval, Ingestion ingestion, Memory memory) {
 
-    public record Llm(String apiKey, String model, Integer maxTokens, Integer timeoutSeconds, Boolean logRequests) {
+    /**
+     * @param provider which LLM service to call: {@code bedrock} (Claude via AWS, uses the standard AWS
+     *                 credential chain) or {@code anthropic} (Claude via the Anthropic API, uses {@code apiKey})
+     * @param model    model ID for the chosen provider; Bedrock IDs look like {@code anthropic.claude-...} or,
+     *                 for cross-region inference profiles, {@code us.anthropic.claude-...}
+     * @param region   AWS region for Bedrock; ignored by other providers
+     */
+    public record Llm(Provider provider, String apiKey, String model, String region, Integer maxTokens,
+                      Integer timeoutSeconds, Boolean logRequests) {
+    }
+
+    public enum Provider {
+        BEDROCK, ANTHROPIC
     }
 
     /**

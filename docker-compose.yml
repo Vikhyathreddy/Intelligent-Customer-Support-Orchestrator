@@ -21,7 +21,14 @@ services:
         condition: service_healthy
     environment:
       DB_URL: jdbc:postgresql://postgres:5432/support
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      LLM_PROVIDER: ${LLM_PROVIDER:-bedrock}
+      LLM_MODEL: ${LLM_MODEL:-anthropic.claude-opus-5-5}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      AWS_PROFILE: ${AWS_PROFILE:-default}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    volumes:
+      # Your AWS login from `aws configure`, read-only. Keys stay on your machine.
+      - ${HOME}/.aws:/root/.aws:ro
     ports:
       - "8080:8080"
 
