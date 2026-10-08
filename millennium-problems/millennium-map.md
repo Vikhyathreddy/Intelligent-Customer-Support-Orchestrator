@@ -13,7 +13,14 @@ claimed. I did **not** re-run the Lean proofs or check any paper line by line.
 it, the result is the model's claim. The repo's own README warns that unformalized results
 "could have issues". On Oct 7, 2026, three Hodge-related papers were withdrawn over a sign error.
 
-Of the seven Millennium problems, Poincaré is solved (Perelman, 2003). The other six are open.
+Of the seven Millennium problems, Poincaré is solved (Perelman, 2003).
+
+**Update (Oct 8, 2026).** Separately from openai/math, OpenAI published a claimed proof of the
+**forced** Navier–Stokes alternatives (C) and (D) in September 2026. It has a Lean 4
+formalization ([openai/NavierStokesAndEuler](https://github.com/openai/NavierStokesAndEuler)).
+Clay has called the problem "apparently settled", and its formal review is ongoing. The
+**unforced** Navier–Stokes question remains open, as do the other five problems. See
+[`navier-stokes-status-2026.md`](navier-stokes-status-2026.md).
 
 ---
 
@@ -82,7 +89,10 @@ asymptotically free and both have a mass gap. But the prize asks for a **4D non-
 theory** satisfying the Wightman/Osterwalder–Schrader axioms, with a mass gap. No interacting
 4D quantum field theory has ever been constructed rigorously.
 
-## Navier–Stokes: nothing close
+## Navier–Stokes: nothing close inside openai/math (but see the separate OpenAI release)
+
+The table below covers only the openai/math collection. OpenAI's separate September 2026 release
+claims the forced alternatives (C) and (D); see [`navier-stokes-status-2026.md`](navier-stokes-status-2026.md).
 
 | Family | Claim | Lean |
 |---|---|---|
@@ -107,4 +117,4 @@ See [`navier-stokes-attempt.md`](navier-stokes-attempt.md) for the full analysis
 3. **Hodge:** special varieties; the withdrawals show this area needs care.
 4. **Yang–Mills:** the right 2D toy models, but no 4D gauge theory.
 5. **P vs NP:** restricted lower bounds only.
-6. **Navier–Stokes:** nothing that addresses blowup or regularity of the actual equation.
+6. **Navier–Stokes:** nothing in openai/math that addresses blowup or regularity of the actual equation. OpenAI's separate 2026 release claims the forced case; the unforced case is open.

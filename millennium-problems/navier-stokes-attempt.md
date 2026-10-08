@@ -5,6 +5,21 @@
 > the strategy, and stops at a gap that is the open problem itself. Treat any document,
 > including this one, that claims to close that gap as unverified until experts have checked it.
 
+> **Correction (October 8, 2026).** When I wrote this note I had only searched the
+> openai/math repository and missed a separate OpenAI release. In September 2026 OpenAI
+> published *Finite time blowup for Navier–Stokes*, claiming Clay alternatives **(C)** and
+> **(D)** (smooth forcing). It comes with a Lean 4 formalization,
+> [openai/NavierStokesAndEuler](https://github.com/openai/NavierStokesAndEuler). Clay has called
+> the problem "apparently settled" and its review is ongoing. Its construction is an approximate
+> solution whose Navier–Stokes residual vanishes to infinite order at the singular point, with
+> the force *defined* as that residual.
+>
+> That is exactly the route this note dismissed in Observation 2.1 and Step 2d, and exactly what
+> Step 2a says the stages must do. So the sentences below claiming "no leverage" and "no one has"
+> are wrong for the forced problem. They are corrected in place. The **unforced** problem is
+> still open; see [`navier-stokes-status-2026.md`](navier-stokes-status-2026.md) and
+> [`anisotropic-zoom-regularity.md`](anisotropic-zoom-regularity.md).
+
 Every claim below carries one of these labels:
 
 | Label | Meaning |
@@ -61,8 +76,11 @@ from Leray's energy estimate. The computing is designed into $U$, and the force 
 *Proof.* If $U$ is smooth for all time, the solution is smooth and nothing breaks down. If $U$
 blows up at a time $T$, the force $\mathcal R_\nu[U]$ is admissible for (D) only if it extends
 smoothly through $t=T$. In that case $U$ is itself a breakdown solution with an admissible force.
-So "find $U$ that blows up while $\mathcal R_\nu[U]$ stays smooth" is just statement (D) restated.
-The lemma gives no leverage. ∎
+So "find $U$ that blows up while $\mathcal R_\nu[U]$ stays smooth" is just statement (D) restated. ∎
+
+*Correction:* I originally concluded that the lemma "gives no leverage". That was wrong in
+spirit. The restatement moves all of the difficulty into constructing such a $U$, and OpenAI's
+September 2026 manuscript claims to do exactly that (see the correction at the top).
 
 **Observation 2.2.** The paper *Computation under Rapidly Vanishing Navier–Stokes Forcing*
 does push information to finer and finer spatial scales. But every step takes one unit of
@@ -179,8 +197,14 @@ To finish, one needs a smooth, finite-energy initial state that, under the **unf
 viscous dynamics, produces a smaller rescaled copy of itself. The process must be robust enough
 to repeat forever and must make the $L^3$ norm diverge.
 
-**I could not construct one, and no one has.** That construction is the Navier–Stokes
-breakdown problem itself. The closest rigorous results are all for *other* equations:
+**I could not construct one.**
+
+*Correction:* for the forced problem (D) the requirement above is stronger than needed. By
+Step 2a the stages only have to solve the unforced equation up to errors that vanish to
+infinite order at the singular time. OpenAI's September 2026 manuscript claims exactly such a
+construction. For the **unforced** problem no construction is known.
+
+When this note was written, the closest rigorous results I listed were all for *other* equations:
 
 - Tao (2016): blowup for an averaged Navier–Stokes equation with a modified nonlinearity.
 - Elgindi (Ann. of Math. 2021): finite-time singularities for 3D Euler (no viscosity) from $C^{1,\alpha}$ data.
@@ -224,16 +248,20 @@ There is no large parameter to send to a limit.
 
 | Item | Status |
 |---|---|
-| Family 376's construction is equivalent to restating (D); it gives no leverage (Obs. 2.1) | **Proved here** |
+| The realization lemma alone only restates (D) (Obs. 2.1); OpenAI's 2026 forced blowup builds on this restatement with a residual flat at the singularity | **Proved here** (restatement); OpenAI claim, Lean-formalized, under review |
 | Smooth forcing vanishes like $\lambda^{3+k}$ in $C^k$ under the scaling that leaves NS unchanged (Prop. 1) | **Proved here**, symbolically checked |
 | Each stage of a breakdown cascade must solve unforced NS to every order (Step 2a), so family 376's machines cannot be stages | **Proved here** |
 | A cascade with boundedly many active stages cannot blow up (Step 2b) | **Known** (ESS 2003, Seregin 2012) + scale invariance (checked); adaptation to forced $\mathbb T^3$ not fully written out |
-| A smooth unforced self-replicating configuration that drives $\|u\|_{L^3}\to\infty$ (Step 2d) | **Open.** This is the Millennium problem. |
+| A smooth unforced self-replicating configuration that drives $\|u\|_{L^3}\to\infty$ (Step 2d) | **Open** for the unforced problem. For the forced problem (D), replication up to flat errors is claimed by OpenAI (Sept 2026). |
 | A regularity proof via the Vlasov–Maxwell or NLS methods (§5) | No route found; structural obstructions identified |
 
-**Bottom line:** no proof of the Navier–Stokes problem, in either direction. The openai/math
-results do not reach it. The one family that studies 3D Navier–Stokes provably cannot supply
-the missing ingredient, because its forces do the work the fluid would have to do by itself.
+**Bottom line:** this note proves nothing about the Navier–Stokes problem in either direction.
+The openai/math results do not reach it. The one family there that studies 3D Navier–Stokes
+cannot supply the missing ingredient, because its forces do the work the fluid would have to do
+by itself.
+
+*Since corrected:* OpenAI's separate September 2026 release claims the forced alternatives (C)
+and (D). The unforced alternatives, and unforced blowup, remain open.
 
 ---
 
